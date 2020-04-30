@@ -1,0 +1,157 @@
+/* Copyright (C) 2010  Egon Willighagen <egonw@users.sf.net>
+ *
+ * Contact: cdk-devel@lists.sourceforge.net
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 2.1
+ * of the License, or (at your option) any later version.
+ * All we ask is that proper credit is given for our work, which includes
+ * - but is not limited to - adding the above copyright notice to the beginning
+ * of your source code files, and to any copyright notice that you may distribute
+ * with programs based on this work.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+package org.openscience.cdk1.stereo;
+
+import org.openscience.cdk1.annotations.TestClass;
+import org.openscience.cdk1.annotations.TestMethod;
+import org.openscience.cdk1.interfaces.IAtom;
+import org.openscience.cdk1.interfaces.IBond;
+import org.openscience.cdk1.interfaces.IChemObjectBuilder;
+import org.openscience.cdk1.interfaces.IStereoElement;
+import org.openscience.cdk1.interfaces.ITetrahedralChirality;
+
+import java.util.Map;
+
+/**
+ * Stereochemistry specification for quadrivalent atoms. See {@link ITetrahedralChirality} for
+ * further details.
+ *
+ * @cdk.module core
+ *
+ * @see org.openscience.cdk1.interfaces.ITetrahedralChirality
+ */
+@TestClass("org.openscience.cdk1.stereo.TetrahedralChiralityTest")
+public class TetrahedralChirality implements ITetrahedralChirality {
+
+    private IAtom chiralAtom;
+    private IAtom[] ligandAtoms;
+    private Stereo stereo;
+    private IChemObjectBuilder builder;
+
+    /**
+     * Constructor to create a new {@link ITetrahedralChirality} implementation instance.
+     * 
+     * @param chiralAtom  The chiral {@link IAtom}.
+     * @param ligandAtoms The ligand atoms around the chiral atom.
+     * @param chirality   The {@link Stereo} chirality.
+     */
+    @TestMethod("testTetrahedralChirality_IAtom_arrayIAtom_ITetrahedralChirality_Stereo")
+    public TetrahedralChirality(IAtom chiralAtom, IAtom[] ligandAtoms, Stereo chirality) {
+        this.chiralAtom = chiralAtom;
+        this.ligandAtoms = ligandAtoms;
+        this.stereo = chirality;
+    }
+
+    /**
+     * Returns an array of ligand atoms around the chiral atom.
+     *
+     * @return an array of four {@link IAtom}s.
+     */
+    @TestMethod("testGetLigands")
+    public IAtom[] getLigands() {
+        IAtom[] arrayCopy = new IAtom[4];
+        System.arraycopy(ligandAtoms, 0, arrayCopy, 0, 4);
+        return arrayCopy;
+    }
+
+    /**
+     * Atom that is the chirality center.
+     *
+     * @return the chiral {@link IAtom}.
+     */
+    @TestMethod("testGetChiralAtom")
+    public IAtom getChiralAtom() {
+        return chiralAtom;
+    }
+
+    /**
+     * Defines the stereochemistry around the chiral atom. The value depends on the order of ligand atoms.
+     *
+     * @return the {@link ITetrahedralChirality.Stereo} for this stereo element.
+     */
+    @TestMethod("testGetStereo")
+    public Stereo getStereo() {
+        return stereo;
+    }
+
+    /**
+     * Sets a new {@link IChemObjectBuilder}.
+     *
+     * @param builder the new {@link IChemObjectBuilder} to be returned
+     * @see #getBuilder()
+     */
+    @TestMethod("testBuilder")
+    public void setBuilder(IChemObjectBuilder builder) {
+        this.builder = builder;
+    }
+
+    /** {@inheritDoc} */
+    @TestMethod("testBuilder")
+    public IChemObjectBuilder getBuilder() {
+        return builder;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @TestMethod("testMap_Map_Map,testMap_Null_Map,testMap_Map_Map_NullElement,testMap_Map_Map_EmptyMapping")
+    @Override
+    public ITetrahedralChirality map(Map<IAtom, IAtom> atoms, Map<IBond, IBond> bonds) {
+
+        // don't check bond map as we don't use it
+        if(atoms == null)
+            throw new IllegalArgumentException("null atom mapping provided");
+
+        // convert the chiral atom and it's ligands to their equivalent
+        IAtom   chiral  = chiralAtom != null ? atoms.get(chiralAtom) : null;
+        IAtom[] ligands = new IAtom[ligandAtoms.length];
+
+        for (int i = 0; i < ligands.length; i++) {
+            if(ligandAtoms[i] != null)
+                ligands[i] = atoms.get(ligandAtoms[i]);
+        }
+
+        // create a new tetrahedral instance with the mapped chiral atom and ligands
+        return new TetrahedralChirality(chiral, ligands, stereo);
+
+    }
+
+    /**
+     * Returns a {@link String} representation of this chiral element.
+     * 
+     * @return the String representation
+     */
+    @TestMethod("testToString")
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Tetrahedral{").append(this.hashCode()).append(", ");
+        builder.append(this.getStereo()).append(", ");
+        builder.append("c:").append(this.getChiralAtom()).append(", ");
+        IAtom[] ligands = this.getLigands();
+        for (int i=0; i<ligands.length; i++) {
+            builder.append(i+1).append(":").append(ligands[i]).append(", ");
+        }
+        builder.append("}");
+        return builder.toString();
+    }
+}

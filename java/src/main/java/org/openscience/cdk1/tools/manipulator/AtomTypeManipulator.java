@@ -1,0 +1,131 @@
+/*
+ *  $RCSfile$
+ *  $Author$
+ *  $Date$
+ *  $Revision$
+ *
+ *  Copyright (C) 2003-2007  The Chemistry Development Kit (CDK) project
+ *
+ *  Contact: cdk-devel@lists.sourceforge.net
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public License
+ *  as published by the Free Software Foundation; either version 2.1
+ *  of the License, or (at your option) any later version.
+ *  All we ask is that proper credit is given for our work, which includes
+ *  - but is not limited to - adding the above copyright notice to the beginning
+ *  of your source code files, and to any copyright notice that you may distribute
+ *  with programs based on this work.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+package org.openscience.cdk1.tools.manipulator;
+
+import org.openscience.cdk1.CDKConstants;
+import org.openscience.cdk1.annotations.TestClass;
+import org.openscience.cdk1.annotations.TestMethod;
+import org.openscience.cdk1.interfaces.IAtom;
+import org.openscience.cdk1.interfaces.IAtomType;
+import org.openscience.cdk1.interfaces.IPseudoAtom;
+
+
+/**
+ * Class with utilities for the <code>AtomType</code> class.
+ * - changed 21/7/05 by cho: add properties for mmff94 atom type 
+ *
+ * @author     mfe4
+ * @author     egonw
+ * @cdk.module standard
+ * @cdk.githash
+ */
+@TestClass("org.openscience.cdk1.tools.manipulator.AtomTypeManipulatorTest")
+public class AtomTypeManipulator {
+	
+	/**
+	 * Method that assign properties to an atom given a particular atomType.
+	 * An <code>IllegalArgumentException</code> is thrown if the given <code>IAtomType</code>
+	 * is null. <b>This method overwrites non-null values.</b>
+	 *
+	 * @param  atom     Atom to configure
+	 * @param  atomType AtomType. Must not be null.
+	 */
+    @TestMethod("testConfigure_IAtom_IAtomType")
+    public static void configure(IAtom atom, IAtomType atomType) {
+        if (atomType == null) {
+            throw new IllegalArgumentException("The IAtomType was null.");
+        }
+
+        // we set the atom type name, but nothing else
+        atom.setAtomTypeName(atomType.getAtomTypeName());
+
+        // configuring aotm type information is not really valid
+        // for pseudo atoms - first because they basically have no
+        // type information and second because they may have information
+        // associated with them from another context, which should not be
+        // overwritten. So we only do the stuff below if we have a non pseudoatom
+        //
+        // a side effect of this is that it is probably not valid to get the atom
+        // type of a peudo atom. I think this is OK, since you can always check
+        // whether an atom is a pseudo atom without looking at its atom type
+        if (!(atom instanceof IPseudoAtom)) {
+            atom.setSymbol(atomType.getSymbol());
+            atom.setMaxBondOrder(atomType.getMaxBondOrder());
+            atom.setBondOrderSum(atomType.getBondOrderSum());
+            atom.setCovalentRadius(atomType.getCovalentRadius());
+            atom.setValency(atomType.getValency());
+            atom.setFormalCharge(atomType.getFormalCharge());
+            atom.setHybridization(atomType.getHybridization());
+            atom.setFormalNeighbourCount(atomType.getFormalNeighbourCount());
+            atom.setFlag(CDKConstants.IS_HYDROGENBOND_ACCEPTOR, atomType.getFlag(CDKConstants.IS_HYDROGENBOND_ACCEPTOR));
+            atom.setFlag(CDKConstants.IS_HYDROGENBOND_DONOR, atomType.getFlag(CDKConstants.IS_HYDROGENBOND_DONOR));
+            Object constant = atomType.getProperty(CDKConstants.CHEMICAL_GROUP_CONSTANT);
+            if (constant != null) {
+                atom.setProperty(CDKConstants.CHEMICAL_GROUP_CONSTANT, constant);
+            }
+            atom.setFlag(CDKConstants.ISAROMATIC, atomType.getFlag(CDKConstants.ISAROMATIC));
+
+            Object color = atomType.getProperty("org.openscience.cdk1.renderer.color");
+            if (color != null) {
+                atom.setProperty("org.openscience.cdk1.renderer.color", color);
+            }
+            if (atomType.getAtomicNumber() != CDKConstants.UNSET) atom.setAtomicNumber(atomType.getAtomicNumber());
+            if (atomType.getExactMass() != CDKConstants.UNSET) atom.setExactMass(atomType.getExactMass());
+        }
+    }
+
+    /**
+     * Method that assign properties to an atom given a particular atomType.
+     * An {@link IllegalArgumentException} is thrown if the given {@link IAtomType}
+     * is null. <b>This method only sets null values.</b>
+     *
+     * @param  atom     Atom to configure
+     * @param  atomType AtomType. Must not be null.
+     */
+    @TestMethod("testConfigureUnsetProperties_DontOverwriterSetProperties,testConfigureUnsetProperties")
+    public static void configureUnsetProperties(IAtom atom, IAtomType atomType) {
+        if (atomType == null) {
+            throw new IllegalArgumentException("The IAtomType was null.");
+        }
+
+        if (atom.getSymbol() == CDKConstants.UNSET && atomType.getSymbol() != CDKConstants.UNSET) atom.setSymbol(atomType.getSymbol());
+        if (atom.getAtomTypeName() == CDKConstants.UNSET && atomType.getAtomTypeName() != CDKConstants.UNSET) atom.setAtomTypeName(atomType.getAtomTypeName());
+        if (atom.getMaxBondOrder() == CDKConstants.UNSET && atomType.getMaxBondOrder() != CDKConstants.UNSET) atom.setMaxBondOrder(atomType.getMaxBondOrder());
+        if (atom.getBondOrderSum() == CDKConstants.UNSET && atomType.getBondOrderSum() != CDKConstants.UNSET) atom.setBondOrderSum(atomType.getBondOrderSum());
+        if (atom.getCovalentRadius() == CDKConstants.UNSET && atomType.getCovalentRadius() != CDKConstants.UNSET) atom.setCovalentRadius(atomType.getCovalentRadius());
+        if (atom.getValency() == CDKConstants.UNSET && atomType.getValency() != CDKConstants.UNSET) atom.setValency(atomType.getValency());
+        if (atom.getFormalCharge() == CDKConstants.UNSET && atomType.getFormalCharge() != CDKConstants.UNSET) atom.setFormalCharge(atomType.getFormalCharge());
+        if (atom.getHybridization() == CDKConstants.UNSET && atomType.getHybridization() != CDKConstants.UNSET) atom.setHybridization(atomType.getHybridization());
+        if (atom.getFormalNeighbourCount() == CDKConstants.UNSET && atomType.getFormalNeighbourCount() != CDKConstants.UNSET) atom.setFormalNeighbourCount(atomType.getFormalNeighbourCount());
+        if (atom.getAtomicNumber() == CDKConstants.UNSET && atomType.getAtomicNumber() != CDKConstants.UNSET) atom.setAtomicNumber(atomType.getAtomicNumber());
+        if (atom.getExactMass() == CDKConstants.UNSET && atomType.getExactMass() != CDKConstants.UNSET) atom.setExactMass(atomType.getExactMass());        
+    }
+
+}
+
