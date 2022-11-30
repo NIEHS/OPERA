@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6703ab01-9529-4f86-814f-6efc49e1f59c}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Toolbox.Addin.OPERA</RootNamespace>
+    <AssemblyName>Toolbox.Addin.OPERA</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\Program Files (x86)\QSAR Toolbox\QSAR Toolbox 4.5\Toolbox Server\Bin\Addins\Toolbox.Addin.OPERA\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>C:\Program Files (x86)\QSAR Toolbox\QSAR Toolbox 4.5\Toolbox Server\Bin\Addins\Toolbox.Addin.OPERA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+	<Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms"/>
+  </ItemGroup>
+  <ItemGroup>
+	<Compile Include="OperaQSAR.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Qsar\PredictionAddin.cs" />
+    <Compile Include="Qsar\QsarAddin.cs" />
+    <Compile Include="Qsar\QsarAddinDefinitions.cs" />
+    <Compile Include="Qsar\TbQsarAddinFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+	  <Reference Include="Toolbox.Docking.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+		  <HintPath>..\..\..\..\..\..\..\Program Files (x86)\QSAR Toolbox\QSAR Toolbox 4.5\Toolbox Server\Bin\Toolbox.Docking.Api.dll</HintPath>
+		  <Private>False</Private>
+	  </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>echo  "../../"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

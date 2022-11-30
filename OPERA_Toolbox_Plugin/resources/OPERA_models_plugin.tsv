@@ -1,0 +1,25 @@
+Model	Model Name	Description	Unit	Data Labels	Endpoint	Endpoint 1	Endpoint 2	Endpoint 3	Endpoint 4	Log10	Guid	Test organisms (species)	Route of administration	
+BP	BP	Boiling Point at 760 mm Hg	Degree C	BP	OPERA BP	Physical Chemical Properties	Boiling Point			FALSE	559dbc16-7abf-44cf-91cb-f74de394ccf1			
+HL	HL	HenryÕs Law constant (air/water partition coefficient) at 25C	atm-m3/mole	LogHL	OPERA HL	Environmental fate and Transport	Transport and Distribution Between Environmental Compartments	Henry's Law constant (H)		TRUE	4e0c583d-9bf0-49b7-8f8c-54cdbc026aae			
+KOA	KOA	The octanol/air partition coefficient.	no unit	LogKOA	OPERA KOA	Physical Chemical Properties	Partition Coefficient:	N-Octanol/Air		FALSE	b29f1c50-4d1a-448b-962f-bd9b81dc2074			
+LogP	LogP	Octanol-water partition coefficient	no unit	LogP	OPERA LogP	Physical Chemical Properties	Partition Coefficient:	N-Octanol/Water		FALSE	716a3cb7-ca56-41a6-a5f4-f5323cdcf5c1			
+MP	MP	Melting Point	Degree C	MP	OPERA MP	Physical Chemical Properties	Melting / freezing point			FALSE	3f000bef-9bcd-4393-a35b-7ff27b97464f			
+VP	VP	Vapor Pressure	mmHg	LogVP	OPERA VP	Physical Chemical Properties	Vapour pressure			TRUE	5bf8f854-9837-4697-a369-50683486057a			
+WS	WS	Water solubility at 25C.	moles/L	LogMolar	OPERA WS	Physical Chemical Properties	Water solubility			TRUE	1cae0f76-67bb-4eee-bcfc-264e24a43849			
+pKa Acidic	pKa Acidic	Logarithmic (acid) dissociation constant	no unit	pKa_a	OPERA pKa acidic	Physical Chemical Properties	Dissociation Constant (pKa)			FALSE	f7add487-44e1-4984-8631-45fd796f84c8			
+pKa Basic	pKa Basic	Logarithmic (acid) dissociation constant	no unit	pKa_b	OPERA pKa basic	Physical Chemical Properties	Dissociation Constant (pKa)			FALSE	8845ca03-3a3f-4813-9e2c-91c3c90d7cc3			
+LogD	LogD	Octanol-water distribution coefficient	no unit		OPERA LogD					TRUE	f74e15b0-516f-4482-8d4e-db277e6d8191			
+LogBCF	LogBCF	Fish bioconcentration factor	no unit	LogBCF	OPERA LogBCF	Environmental Fate and Transport	Bioaccumulation: aquatic			TRUE	f911612b-6af7-440c-a06f-ee4947fffb36			
+AOH	AOH	"OH rate constant for the atmospheric, gas-phase reaction between photochemically produced hydroxyl radicals and organic chemicals"	cm3/molecule-sec	LogOH	OPERA AOH	Environmental Fate and Transport	Photodegradation	Phototransformation in Air	Rate constant	TRUE	c3290ddb-b4cf-4fb4-a506-5f6a2789d0db			
+BioDeg	BioDeg	biodegradation half-life for compounds containing only carbon and hydrogen 	days	LogHalfLife	OPERA BioDeg	Environmental fate and Transport	Biodegradation	Biodegradation in Water: Screening Tests	Half-life	TRUE	f11e002f-4881-46e0-9304-710688454c21			
+RBioDeg	RBioDeg	Ready biodegradability of organic chemicals	no unit	Ready_Biodeg	OPERA RBioDeg	Environmental fate and Transport	Biodegradation	Biodegradation in Water: Screening Tests	Ready Biodegradability	FALSE	25801edf-7922-4e63-bbce-fc8b59b5d4c7			
+KM	KM	The whole body primary biotransformation rate (half-life) constant for organic chemicals in fish.	days	LogKmHL	OPERA KM	Environmental Fate and Transport	Bioaccumulation: aquatic			TRUE	19d81bf3-e3b6-42fe-a16f-d772626daf94			
+KOC	KOC	soil absorption coefficient of organic compounds.	log(L/kg)	LogKOC	OPERA KOC	Environmental Fate and Transport	Transport and Distribution Between Environmental Compartments	Adsorption/desorption		FALSE	7a7179c0-13c7-494e-ae16-819b026e0115			
+CERAPP	CERAPP	Collaborative Estrogen Receptor Activity Prediction Project. Binding consensus	no unit		OPERA CERAPP(ER)	Human Health Hazards	Toxicity to Reproduction			FALSE	820106ec-e47e-4cc3-a67c-5695ab855735			
+CoMPARA	CoMPARA	Collaborative Modeling Project for Androgen Receptor. Binding consensus	no unit		OPERA CoMPARA(AR)	Human Health Hazards	Toxicity to Reproduction			FALSE	822b04af-6bda-4b0c-8231-51d9dd7e682f			
+CERAPP_2	CERAPP	Collaborative Estrogen Receptor Activity Prediction Project. Binding consensus	no unit		OPERA CERAPP(ER)	Human Health Hazards	ToxCast			FALSE	89fbfc6d-6b5e-495b-be21-c7b71ca9078d			
+CoMPARA_2	CoMPARA	Collaborative Modeling Project for Androgen Receptor. Binding consensus	no unit		OPERA CoMPARA(AR)	Human Health Hazards	ToxCast			FALSE	9d6940d5-23c2-41f1-acea-170d634275c1			
+CATMoS	CATMoS	Collaborative Acute Toxicity Modeling Suite. very_toxic LD50 ² 50 mg/kg vs LD50 > 50 mg/kg	mg/kg bdwt/d		OPERA CATMoS(LD50)	Human Health Hazards	Acute Toxicity			FALSE	2675a285-501b-48b5-b19d-e7726cc377e6	Rat	Oral	
+Caco2	Caco2	Caco-2 permeability (logPapp)	log(cm/s)	CalculatedLogPapp	OPERA CACO2	Human Health Hazards	ADME	Absorption		FALSE	4a28d251-59b9-4e8e-9696-4ff5a8c39752			
+FuB	FuB	Human plasma fraction unbound	no unit	FU	OPERA FuB	Human Health Hazards	ADME	Distribution		FALSE	ef523b2d-acff-41f2-8917-f6f326214cfe			
+Clint	Clint	Human hepatic intrinsic clearance 	ul/min/10^6 cells		OPERA Clint	Human Health Hazards	ADME	Elimination		FALSE	4e2fb2cd-5897-4f7d-9417-ca60e2927f99			
